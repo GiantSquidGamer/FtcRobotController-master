@@ -14,3 +14,11 @@ package org.firstinspires.ftc.team3470;
 public class Main {
 
 }
+
+/*
+    Notebook:
+    //TODO Learn about ops and telemtry
+    //TODO use real parts
+    //TODO fix constructors
+    //TODO finish code
+ */
