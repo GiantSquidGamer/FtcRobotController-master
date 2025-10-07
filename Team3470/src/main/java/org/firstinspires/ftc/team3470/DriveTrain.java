@@ -1,20 +1,24 @@
 package org.firstinspires.ftc.team3470;
 
-//TODO Import Statement
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 /**
  * Controls the 4 mecanum wheels.
  *
- * @author Name: TODO
+ * @author Name: Siddhartha Gopal
  * @author Team: 3470
  * @author Robot: LeBot
- * @author Sources/Contributors: TODO
+ * @author Sources/Contributors: Nikhil
  * @version October 5, 2025
  */
 public class DriveTrain {
-    private DCMotor  frontLeft, frontRight, backLeft, backRight;
+    private DcMotor  frontLeft, frontRight, backLeft, backRight;
 
-    //TODO Fix constructor after real parts are implemented, have objects have orignal properties
     /**
      * Constructor for DriveTrain.
      *
@@ -23,32 +27,30 @@ public class DriveTrain {
      * @param backLeft back left dc motor
      * @param backRight back right dc motor
      */
-    public DriveTrain(DCMotor frontLeft, DCMotor frontRight, DCMotor backLeft, DCMotor backRight) {
+    public DriveTrain(DcMotor frontLeft, DcMotor frontRight, DcMotor backLeft, DcMotor backRight) {
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.backLeft = backLeft;
         this.backRight = backRight;
     }
-    /**
 
+    /**
      * Moves robot forward/backward.
-     *
-     * @param direction “forward”, “backward”, “left”, “right”, “rotateLeft”, “rotateRight”
-     * @param speed 0.0–1.0
      */
-    public void drive(String direction, double speed)
-    {
-        //TODO
-    }
+    public void drive() {
+        double vertical = 0;
+        double horizontal = 0;
+        double pivot = 0;
+        vertical = -gamepad1.left_stick_y;
+        horizontal = gamepad1.left_stick_x;
+        pivot = gamepad1.right_stick_x;
 
-    /**
-     * Moves robot sideways (“left” or “right”).
-     *
-     * @param direction “forward”, “backward”, “left”, “right”, “rotateLeft”, “rotateRight”
-     * @param speed 0.0–1.0
-     */
-    public void strafe(String direction, double speed)
-    {
-        //TODO
+        frontRight.setPower(pivot + (-vertical + horizontal));
+        backRight.setPower(pivot + (-vertical - horizontal));
+        frontLeft.setPower(pivot + (-vertical - horizontal));
+        backLeft.setPower(pivot + (-vertical + horizontal));
+
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 }
