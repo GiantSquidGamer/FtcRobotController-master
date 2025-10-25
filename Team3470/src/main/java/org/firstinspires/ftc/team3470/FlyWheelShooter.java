@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.team3470;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
 //TODO Import Statement
 //TODO USE REAL PARTS
 /**
@@ -12,7 +15,7 @@ package org.firstinspires.ftc.team3470;
  * @version October 25, 2025
  */
 public class FlyWheelShooter {
-    private DCMotor flyWheelMotor;
+    private DcMotor flyWheelMotor;
     private Servo angleServo;
     private Servo sidePusherLeft, sidePusherRight;
 
@@ -25,7 +28,7 @@ public class FlyWheelShooter {
      * @param sidePusherLeft left side pusher servo
      * @param sidePusherRight right side pusher servo
      */
-    public FlyWheelShooter(DCMotor flyWheelMotor, Servo angleServo, Servo sidePusherLeft, Servo sidePusherRight) {
+    public FlyWheelShooter(DcMotor flyWheelMotor, Servo angleServo, Servo sidePusherLeft, Servo sidePusherRight) {
         this.flyWheelMotor = flyWheelMotor;
         this.angleServo = angleServo;
         this.sidePusherLeft = sidePusherLeft;
@@ -35,8 +38,19 @@ public class FlyWheelShooter {
     /**
      * Pushes ball into flywheel and spins it.
      */
-    public void shootBall() {
-        //TODO
+    public boolean shootBall(Ball ball, double x1, double y1, double z1, double x2, double y2, double z2, double v0) {
+        double angle = getAngle(x1, y1, z1, x2, y2, z2, v0);
+
+        if (angle != Double.MIN_VALUE) {
+            adjustAngle(angle);
+
+            // Write code here; set flywheel motors at a certain speed given v0
+            feedBall(ball);
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -45,7 +59,7 @@ public class FlyWheelShooter {
      * @param angle angle of servo
      */
     public void adjustAngle(double angle) {
-        //TODO
+        // Write code here; purpose TBD
     }
 
     /**
@@ -96,7 +110,7 @@ public class FlyWheelShooter {
     private static double calculateLaunchAngle(double v0, double distance, double deltaY, double g) {
         double underSqrt = Math.pow(v0, 4) - g * (g * distance * distance + 2 * deltaY * v0 * v0);
         if (underSqrt < 0) {
-            return -1;
+            return Double.MIN_VALUE;
         }
         double sqrtPart = Math.sqrt(underSqrt);
         double angle1 = Math.atan((v0 * v0 + sqrtPart) / (g * distance));
