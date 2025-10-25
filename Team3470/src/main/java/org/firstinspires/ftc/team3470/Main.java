@@ -12,7 +12,9 @@ package org.firstinspires.ftc.team3470;
  * @version October 5, 2025
  */
 public class Main {
-
+    public static void main(String[] args) {
+        
+    }
 }
 
 /*
