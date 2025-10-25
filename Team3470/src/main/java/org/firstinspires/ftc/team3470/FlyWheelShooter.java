@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.team3470;
 
 //TODO Import Statement
-
+//TODO USE REAL PARTS
 /**
  * Shoots balls into the goal.
  *
- * @author Name: TODO
+ * @author Name: Raphael Manayon
  * @author Team: 3470
  * @author Robot: LeBot
- * @author Sources/Contributors: TODO
- * @version October 5, 2025
+ * @author Sources/Contributors: Siddhartha Gopal
+ * @version October 25, 2025
  */
 public class FlyWheelShooter {
     private DCMotor flyWheelMotor;
@@ -57,4 +57,52 @@ public class FlyWheelShooter {
     {
         //TODO
     }
+
+    /**
+     * Calculates the angle needed to shoot the ball at for it to his a target.
+     *
+     * @param x1 x pos of robot
+     * @param y1 y pos of robot
+     * @param z1 z pos of robot
+     * @param x2 x pos of target
+     * @param y2 y pos of target
+     * @param z2 z pos of target
+     * @param v0 initial velocity of the ball
+     * @return angle in degrees to hit the target
+     */
+    public double getAngle(double x1, double y1, double z1, double x2, double y2, double z2, double v0)
+    {
+        double distanceX = x2-x1;
+        if (distanceX<0) {
+            distanceX=distanceX*-1.0;
+        }
+
+        double distanceZ = z2-z1;
+        if (distanceZ<0) {
+            distanceZ = distanceZ*-1.0;
+        }
+
+        if (distanceX == 0 && distanceZ == 0) {
+            return -1;
+        }
+
+        double angle = AngleUtils.getAngleDegrees(x1, y1, x2, y2);
+        double distance = Math.sqrt(distanceX*distanceX + distanceZ*distanceZ);
+        double yDistance = y2-y1;
+
+        return calculateLaunchAngle(v0, distance, yDistance, 9.81);
+    }
+
+    private static double calculateLaunchAngle(double v0, double distance, double deltaY, double g) {
+        double underSqrt = Math.pow(v0, 4) - g * (g * distance * distance + 2 * deltaY * v0 * v0);
+        if (underSqrt < 0) {
+            return -1;
+        }
+        double sqrtPart = Math.sqrt(underSqrt);
+        double angle1 = Math.atan((v0 * v0 + sqrtPart) / (g * distance));
+        double angle2 = Math.atan((v0 * v0 - sqrtPart) / (g * distance));
+
+        return Math.toDegrees(Math.min(angle1, angle2));
+    }
+
 }

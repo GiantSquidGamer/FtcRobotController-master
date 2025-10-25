@@ -5,15 +5,15 @@ package org.firstinspires.ftc.team3470;
 /**
  * Main robot class; holds all subsystems.
  *
- * @author Name: TODO
+ * @author Name: Siddhartha Gopal
  * @author Team: 3470
  * @author Robot: LeBot
- * @author Sources/Contributors: TODO
+ * @author Sources/Contributors: Raphael Manayon
  * @version October 5, 2025
  */
+//TODO USE REAL PARTS
 public class Robot {
     private DriveTrain driveTrain;
-    private SortingSystem sortingSystem;
     private FlyWheelShooter flyWheelShooter;
     private CameraSystem cameraSystem;
 
@@ -22,13 +22,11 @@ public class Robot {
      * Constructor for Robot.
      *
      * @param driveTrain drive train system
-     * @param sortingSystem system for sorting
      * @param flyWheelShooter flywheel shooter system
      * @param cameraSystem system for camera use
      */
-    public Robot(DriveTrain driveTrain, SortingSystem sortingSystem, FlyWheelShooter flyWheelShooter, CameraSystem cameraSystem) {
+    public Robot(DriveTrain driveTrain, FlyWheelShooter flyWheelShooter, CameraSystem cameraSystem) {
         this.driveTrain = driveTrain;
-        this.sortingSystem = sortingSystem;
         this.flyWheelShooter = flyWheelShooter;
         this.cameraSystem = cameraSystem;
     }

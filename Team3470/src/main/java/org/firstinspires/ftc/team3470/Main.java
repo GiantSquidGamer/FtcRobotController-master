@@ -5,10 +5,10 @@ package org.firstinspires.ftc.team3470;
 /**
  * Runs the match (Autonomous or TeleOp).
  *
- * @author Name: TODO
+ * @author Name: Siddhartha Gopal
  * @author Team: 3470
  * @author Robot: LeBot
- * @author Sources/Contributors: TODO
+ * @author Sources/Contributors: None
  * @version October 5, 2025
  */
 public class Main {

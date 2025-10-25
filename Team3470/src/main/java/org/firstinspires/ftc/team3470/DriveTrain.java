@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.team3470;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
-
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -13,10 +10,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * @author Name: Siddhartha Gopal
  * @author Team: 3470
  * @author Robot: LeBot
- * @author Sources/Contributors: Nikhil
- * @version October 5, 2025
+ * @author Sources/Contributors: Nikhil Ratakonda
+ * @version October 7, 2025
  */
-public class DriveTrain {
+public class DriveTrain
+{
     private DcMotor  frontLeft, frontRight, backLeft, backRight;
 
     /**
