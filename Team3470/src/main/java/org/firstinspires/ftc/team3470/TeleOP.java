@@ -1,15 +1,28 @@
 package org.firstinspires.ftc.team3470;
 //TODO Use real imports
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 /**
  * Main robot class; holds all subsystems.
  *
  * @author Name: Siddhartha Gopal
  * @author Team: 3470
  * @author Robot: LeBot
- * @author Sources/Contributors: None
- * @version October 25, 2025
+ * @author Sources/Contributors: Raphael Manayon
+ * @version October 28, 2025
  */
-public class TeleOP {
-    //TODO
-    //TODO USE REAL PARTS
+
+@TeleOp
+public class TeleOP extends OpMode {
+    // Define motors & servos
+
+    public void init() {
+        // Initialize hardware map
+    }
+
+    public void loop() {
+        // Take inputs
+    }
 }
