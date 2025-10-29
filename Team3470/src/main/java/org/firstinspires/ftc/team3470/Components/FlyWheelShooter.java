@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * @author Team: 3470
  * @author Robot: LeBot
  * @author Sources/Contributors: Siddhartha Gopal
- * @version October 25, 2025
+ * @version October 29, 2025
  */
 public class FlyWheelShooter implements Component {
     private DcMotor flyWheelMotor1, flyWheelMotor2;

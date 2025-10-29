@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * @author Name: Siddhartha Gopal
  * @author Team: 3470
  * @author Robot: LeBot
- * @author Sources/Contributors: Nikhil Ratakonda
- * @version October 7, 2025
+ * @author Sources/Contributors: Nikhil Ratakonda, Raphael Manayon
+ * @version October 29, 2025
  */
 public class DriveTrain implements Component
 {
