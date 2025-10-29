@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.team3470;
+package org.firstinspires.ftc.team3470.Components;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Controls the 4 mecanum wheels.
@@ -13,23 +14,20 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * @author Sources/Contributors: Nikhil Ratakonda
  * @version October 7, 2025
  */
-public class DriveTrain
+public class DriveTrain implements Component
 {
-    private DcMotor  frontLeft, frontRight, backLeft, backRight;
+    private DcMotor frontLeft, frontRight, backLeft, backRight;
 
     /**
      * Constructor for DriveTrain.
      *
-     * @param frontLeft front left dc motor
-     * @param frontRight front right dc motor
-     * @param backLeft back left dc motor
-     * @param backRight back right dc motor
+     * @param hardwareMap The Hardware Map
      */
-    public DriveTrain(DcMotor frontLeft, DcMotor frontRight, DcMotor backLeft, DcMotor backRight) {
-        this.frontLeft = frontLeft;
-        this.frontRight = frontRight;
-        this.backLeft = backLeft;
-        this.backRight = backRight;
+    public void init(HardwareMap hardwareMap) {
+        this.frontLeft = hardwareMap.get(DcMotor.class, "fl");
+        this.frontRight = hardwareMap.get(DcMotor.class, "fr");
+        this.backLeft = hardwareMap.get(DcMotor.class, "bl");
+        this.backRight = hardwareMap.get(DcMotor.class, "br");
     }
 
     /**

@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.team3470;
+package org.firstinspires.ftc.team3470.Components;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 //TODO Import Statement
@@ -14,7 +15,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * @author Sources/Contributors: Siddhartha Gopal
  * @version October 25, 2025
  */
-public class FlyWheelShooter {
+public class FlyWheelShooter implements Component {
     private DcMotor flyWheelMotor1, flyWheelMotor2;
     private Servo angleServo;
     private Servo sidePusherLeft, sidePusherRight;
@@ -23,29 +24,25 @@ public class FlyWheelShooter {
     /**
      * Constructor for FlyWheelShooter.
      *
-     * @param flyWheelMotor1 flywheel dc motor 1
-     * @param flyWheelMotor2 flywheel dc motor 2
-     * @param angleServo angular shooting servo
-     * @param sidePusherLeft left side pusher servo
-     * @param sidePusherRight right side pusher servo
+     * @param hardwareMap Hardware map
      */
-    public FlyWheelShooter(DcMotor flyWheelMotor1, DcMotor flyWheelMotor2, Servo angleServo, Servo sidePusherLeft, Servo sidePusherRight) {
-        this.flyWheelMotor1 = flyWheelMotor1;
-        this.flyWheelMotor2 = flyWheelMotor2;
-        this.angleServo = angleServo;
-        this.sidePusherLeft = sidePusherLeft;
-        this.sidePusherRight = sidePusherRight;
+    public void init(HardwareMap hardwareMap) {
+        this.flyWheelMotor1 = hardwareMap.get(DcMotor.class, "fwMotor1");
+        this.flyWheelMotor2 = hardwareMap.get(DcMotor.class, "fwMotor2");
+        this.angleServo = hardwareMap.get(Servo.class, "angleServo");
+        this.sidePusherLeft = hardwareMap.get(Servo.class, "spLeft");
+        this.sidePusherRight = hardwareMap.get(Servo.class, "spRight");
     }
 
     /**
      * Pushes ball into flywheel and spins it.
      */
-    public boolean shootBall(Ball ball, double x1, double y1, double z1, double x2, double y2, double z2, double v0) {
+    public boolean shootBall(double x1, double y1, double z1, double x2, double y2, double z2, double v0) {
         double angle = getAngle(x1, y1, z1, x2, y2, z2, v0);
 
         if (angle != Double.MIN_VALUE) {
             adjustAngle(angle);
-            feedBall(ball, v0);
+            feedBall(v0);
 
             return true;
         } else {
@@ -68,12 +65,11 @@ public class FlyWheelShooter {
     }
 
     /**
-     * Pushes a ball into flywheel using side pushers.
+     * Feeds the next ball into flywheel using side pushers.
      *
-     * @param ball the ball to be fed
      * @param v0 the initial velocity of the ball
      */
-    public void feedBall(Ball ball, double v0)
+    public void feedBall(double v0)
     {
         // Set flywheel motors at a speed such that the ball is launched at a speed of v0
         // Push ball using pusher servos

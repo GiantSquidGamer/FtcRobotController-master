@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.team3470;
 //TODO USE REAL PARTS
 //TODO DO
+
+import org.firstinspires.ftc.team3470.Components.Robot;
+
 /**
  * Main robot class; holds all subsystems;
  *
