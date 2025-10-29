@@ -2,6 +2,8 @@ package org.firstinspires.ftc.team3470.Components;
 
 //TODO Import Statement
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
 /**
  * Main robot class; holds all subsystems.
  *
@@ -13,66 +15,30 @@ package org.firstinspires.ftc.team3470.Components;
  */
 //TODO USE REAL PARTS
 public class Robot {
-    private DriveTrain driveTrain;
-    private FlyWheelShooter flyWheelShooter;
-    private CameraSystem cameraSystem;
+    public OpMode myOpMode;
+
+    public DriveTrain driveTrain = new DriveTrain();
+    public FlyWheelShooter flyWheelShooter = new FlyWheelShooter();
+    public CameraSystem cameraSystem = new CameraSystem();
+    public Component[] components = {cameraSystem, flyWheelShooter, driveTrain};
 
     //TODO Fix constructor after real parts are implemented, have objects have orignal properties
     /**
      * Constructor for Robot.
      *
-     * @param driveTrain drive train system
-     * @param flyWheelShooter flywheel shooter system
-     * @param cameraSystem system for camera use
+     * @param opMode The running OP Mode
      */
-    public Robot(DriveTrain driveTrain, FlyWheelShooter flyWheelShooter, CameraSystem cameraSystem) {
-        this.driveTrain = driveTrain;
-        this.flyWheelShooter = flyWheelShooter;
-        this.cameraSystem = cameraSystem;
-    }
-    /**
-     * Moves the robot in a specified direction.
-     *
-     * @param direction “forward”, “backward”, “left”, “right”, “rotateLeft”, “rotateRight”
-     * @param speed 0.0–1.0
-     */
-    public void move(String direction, double speed) {
-        //TODO
+    public Robot(OpMode opMode) {
+        this.myOpMode = opMode;
     }
 
     /**
-     * Activates the sorting system intake to pick up balls.
+     * Initialize every component of the robot
      */
-    public void pickUpBalls()
-    {
-        //TODO
+    public void init() {
+        for (Component component : components) {
+            component.init(myOpMode.hardwareMap);
+        }
     }
-
-    /**
-     * Detects color and routes balls using the SortingSystem.
-     */
-    public void sortBalls(){
-        //TODO
-    }
-
-    /**
-     * Feeds a ball into the FlyWheelShooter and fires.
-     */
-    public void shootBall()
-    {
-        //TODO
-    }
-
-    /**
-     * Calls the CameraSystem to read a QR code.
-     *
-     * @return String (QR code value)
-     */
-    public String readQRCode()
-    {
-        //TODO
-        return null;
-    }
-
 }
 

@@ -16,10 +16,10 @@ import android.util.Size;
 /**
  * Handles vision tasks, like detecting and decoding QR codes or AprilTags.
  *
- * @author Name: Mr. President
+ * @author Name: Raphael Manayon
  * @author Team: 3470
  * @author Robot: LeBot
- * @author Sources/Contributors: None (Built by the president with his bare hands)
+ * @author Sources/Contributors: Siddhartha Gopal
  * @version October 25, 2025
  */
 public class CameraSystem implements Component {
