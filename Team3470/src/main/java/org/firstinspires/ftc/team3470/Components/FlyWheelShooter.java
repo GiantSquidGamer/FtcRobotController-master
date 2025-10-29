@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Shoots balls into the goal.
  *
- * @author Name: Raphael Manayon
+ * @author Name: Raphael Manayon, Siddhartha Gopal
  * @author Team: 3470
  * @author Robot: LeBot
- * @author Sources/Contributors: Siddhartha Gopal
+ * @author Sources/Contributors: None
  * @version October 29, 2025
  */
 public class FlyWheelShooter implements Component {

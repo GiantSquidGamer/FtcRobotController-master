@@ -34,19 +34,6 @@ public class DriveTrain implements Component
      * Moves robot forward/backward.
      */
     public void drive() {
-        double vertical = 0;
-        double horizontal = 0;
-        double pivot = 0;
-        vertical = -gamepad1.left_stick_y;
-        horizontal = gamepad1.left_stick_x;
-        pivot = gamepad1.right_stick_x;
-
-        frontRight.setPower(pivot + (-vertical + horizontal));
-        backRight.setPower(pivot + (-vertical - horizontal));
-        frontLeft.setPower(pivot + (-vertical - horizontal));
-        backLeft.setPower(pivot + (-vertical + horizontal));
-
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        // TODO
     }
 }
