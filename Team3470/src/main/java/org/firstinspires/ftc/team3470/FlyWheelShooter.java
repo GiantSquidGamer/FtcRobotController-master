@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * @version October 25, 2025
  */
 public class FlyWheelShooter {
-    private DcMotor flyWheelMotor;
+    private DcMotor flyWheelMotor1, flyWheelMotor2;
     private Servo angleServo;
     private Servo sidePusherLeft, sidePusherRight;
 
@@ -23,13 +23,15 @@ public class FlyWheelShooter {
     /**
      * Constructor for FlyWheelShooter.
      *
-     * @param flyWheelMotor flywheel dc motor
+     * @param flyWheelMotor1 flywheel dc motor 1
+     * @param flyWheelMotor2 flywheel dc motor 2
      * @param angleServo angular shooting servo
      * @param sidePusherLeft left side pusher servo
      * @param sidePusherRight right side pusher servo
      */
-    public FlyWheelShooter(DcMotor flyWheelMotor, Servo angleServo, Servo sidePusherLeft, Servo sidePusherRight) {
-        this.flyWheelMotor = flyWheelMotor;
+    public FlyWheelShooter(DcMotor flyWheelMotor1, DcMotor flyWheelMotor2, Servo angleServo, Servo sidePusherLeft, Servo sidePusherRight) {
+        this.flyWheelMotor1 = flyWheelMotor1;
+        this.flyWheelMotor2 = flyWheelMotor2;
         this.angleServo = angleServo;
         this.sidePusherLeft = sidePusherLeft;
         this.sidePusherRight = sidePusherRight;
@@ -43,9 +45,7 @@ public class FlyWheelShooter {
 
         if (angle != Double.MIN_VALUE) {
             adjustAngle(angle);
-
-            // Write code here; set flywheel motors at a certain speed given v0
-            feedBall(ball);
+            feedBall(ball, v0);
 
             return true;
         } else {
@@ -56,20 +56,28 @@ public class FlyWheelShooter {
     /**
      * Moves angleServo to set firing angle.
      *
-     * @param angle angle of servo
+     * @param angle angle of servo in degrees
      */
     public void adjustAngle(double angle) {
-        // Write code here; purpose TBD
+        double position = angle/180;
+        if (position < 0 || position > 1) {
+            return;
+        }
+
+        this.angleServo.setPosition(position);
     }
 
     /**
      * Pushes a ball into flywheel using side pushers.
      *
      * @param ball the ball to be fed
+     * @param v0 the initial velocity of the ball
      */
-    public void feedBall(Ball ball)
+    public void feedBall(Ball ball, double v0)
     {
-        //TODO
+        // Set flywheel motors at a speed such that the ball is launched at a speed of v0
+        // Push ball using pusher servos
+        // Return once ball leaves
     }
 
     /**
@@ -86,35 +94,35 @@ public class FlyWheelShooter {
      */
     public double getAngle(double x1, double y1, double z1, double x2, double y2, double z2, double v0)
     {
-        double distanceX = x2-x1;
-        if (distanceX<0) {
-            distanceX=distanceX*-1.0;
-        }
-
-        double distanceZ = z2-z1;
-        if (distanceZ<0) {
-            distanceZ = distanceZ*-1.0;
-        }
-
-        if (distanceX == 0 && distanceZ == 0) {
+        double deltaX = x2-x1;
+        double deltaZ = z2-z1;
+        if (deltaX == 0 && deltaZ == 0) {
             return -1;
         }
 
-        double angle = AngleUtils.getAngleDegrees(x1, y1, x2, y2);
-        double distance = Math.sqrt(distanceX*distanceX + distanceZ*distanceZ);
+        double hDistance = Math.sqrt(deltaX*deltaX + deltaZ*deltaZ);
         double yDistance = y2-y1;
 
-        return calculateLaunchAngle(v0, distance, yDistance, 9.81);
+        return calculateVerticalLaunchAngle(v0, hDistance, yDistance, 9.807);
     }
 
-    private static double calculateLaunchAngle(double v0, double distance, double deltaY, double g) {
-        double underSqrt = Math.pow(v0, 4) - g * (g * distance * distance + 2 * deltaY * v0 * v0);
+    /**
+     * Calculates the necessary vertical launch angle for a ball
+     *
+     * @param v0 Estimated initial velocity of ball
+     * @param hDistance Distance from the robot and the goal on the horizontal plane
+     * @param deltaY Vertical distance
+     * @param g Gravitational acceleration constant
+     * @return The launch angle required; or Double.MIN_VALUE if not possible
+     */
+    private static double calculateVerticalLaunchAngle(double v0, double hDistance, double deltaY, double g) {
+        double underSqrt = Math.pow(v0, 4) - g * (g * hDistance * hDistance + 2 * deltaY * v0 * v0);
         if (underSqrt < 0) {
             return Double.MIN_VALUE;
         }
         double sqrtPart = Math.sqrt(underSqrt);
-        double angle1 = Math.atan((v0 * v0 + sqrtPart) / (g * distance));
-        double angle2 = Math.atan((v0 * v0 - sqrtPart) / (g * distance));
+        double angle1 = Math.atan((v0 * v0 + sqrtPart) / (g * hDistance));
+        double angle2 = Math.atan((v0 * v0 - sqrtPart) / (g * hDistance));
 
         return Math.toDegrees(Math.min(angle1, angle2));
     }
